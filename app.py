@@ -235,6 +235,8 @@ def search(table):
 
 @app.route('/student_detail/<table>/<roll_num>', methods=['GET'])
 def student_detail(table, roll_num):
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
     if 'user' not in session or session['role'] != 'admin':
         return redirect(url_for('login'))
     
