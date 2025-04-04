@@ -1,0 +1,932 @@
+naa eannoda project codes aanuppure athula paathutu athula enna pannirukkeno athuku eatha maari introdection oru 5 pages ku anuppu
+
+
+login.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System - Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="form-container">
+            <h1 class="text-center mb-4">Login</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+              {% endfor %}
+            {% endwith %}
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role:</label>
+                    <select name="role" id="role" class="form-select">
+                        <option value="admin">Admin</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+home.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System - Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+        </div>
+    </nav>
+
+    <main class="container text-center">
+        <h1 class="display-4">Welcome to Attendance System</h1>
+        <p class="lead">Easily track and manage student attendance.</p>
+        <a href="/login" class="btn btn-primary btn-lg mt-3">Login</a>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+admindashboard.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .table-list {
+            max-width: 600px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+            <div class="d-flex">
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="table-list">
+            <h1 class="text-center">Admin Dashboard</h1>
+            <h2 class="mt-4">Available Tables</h2>
+            <ul class="list-group mt-3">
+                {% for table in tables %}
+                <li class="list-group-item">
+                    <a href="/select_period/{{ table }}" class="text-decoration-none">{{ table }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+selec_period.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Period</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="form-container">
+            <h1 class="text-center mb-4">Select Period for {{ table_name }}</h1>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="period" class="form-label">Choose a period:</label>
+                    <select name="period" id="period" class="form-select" required>
+                        {% for period in periods %}
+                        <option value="{{ period }}">Period {{ period }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+table_detail.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ table_name }} - Period {{ period }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        table {
+            margin-top: 20px;
+        }
+        .btn {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">{{ table_name }} - Student Details (Period {{ period }})</h1>
+
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for roll_num, name, present, absent, temp_present, temp_absent in student_details %}
+                <tr>
+                    <td>{{ roll_num }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ present + temp_present }}</td>
+                    <td>{{ absent + temp_absent }}</td>
+                    <td>
+                        <form action="/mark_attendance" method="POST" style="display:inline;">
+                            <input type="hidden" name="roll_num" value="{{ roll_num }}">
+                            <input type="hidden" name="action" value="Present">
+                            <input type="hidden" name="table_name" value="{{ table_name }}">
+                            <input type="hidden" name="period" value="{{ period }}">
+                            <button type="submit" class="btn btn-success btn-sm">Present</button>
+                        </form>
+                        <form action="/mark_attendance" method="POST" style="display:inline;">
+                            <input type="hidden" name="roll_num" value="{{ roll_num }}">
+                            <input type="hidden" name="action" value="Absent">
+                            <input type="hidden" name="table_name" value="{{ table_name }}">
+                            <input type="hidden" name="period" value="{{ period }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Absent</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form action="/submit_attendance" method="POST" class="text-center mt-4">
+            <input type="hidden" name="table_name" value="{{ table_name }}">
+            <input type="hidden" name="period" value="{{ period }}">
+            <button type="submit" class="btn btn-primary">Submit Attendance</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+working_days_message.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Limit</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .message-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="message-card">
+            <h1 class="text-danger">Total College Working Days Reached</h1>
+            <p class="lead">The total college working days are <strong>90</strong>. You have achieved the limit!</p>
+            <a href="/dashboard" class="btn btn-primary mt-3">Back to Dashboard</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+app.py
+import re
+import mysql.connector
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import datetime
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+# Database configuration
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'appa,amma',
+    'database': 'attendance'
+}
+
+# Email configuration
+email_config = {
+    'smtp_server': 'smtp.gmail.com',
+    'smtp_port': 587,
+    'email': 'kathermytheen143143@gmail.com',
+    'password': 'qwdf ldlr ssfq lksl'
+}
+
+def send_email(to_email, student_name, percentage, message):
+    subject = "Attendance and Percentage Alert"
+    body = f"Dear {student_name},\n\n{message}\n\nYour attendance percentage is: {percentage}%.\n\nRegards,\nAdmin"
+
+    msg = MIMEMultipart()
+    msg['From'] = email_config['email']
+    msg['To'] = to_email
+    msg['Subject'] = subject
+
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        with smtplib.SMTP(email_config['smtp_server'], email_config['smtp_port']) as server:
+            server.starttls()
+            server.login(email_config['email'], email_config['password'])
+            server.sendmail(email_config['email'], to_email, msg.as_string())
+            print(f"Email sent to {to_email}")
+    except Exception as e:
+        print(f"Failed to send email to {to_email}. Error: {str(e)}")
+
+def check_and_notify():
+    try:
+        # Connect to the database
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+
+        # Query to get students with total_days > 90 and percentage < 75 in cs_stu_details
+        query_cs = """
+        SELECT stu_name, mail_id FROM cs_stu_details 
+        WHERE percentagae < 75.00;
+        """
+
+        # Query to get students with total_days > 90 and percentage < 75 in bca_stu_details
+        query_bca = """
+        SELECT stu_name, mail_id FROM bca_stu_details 
+        WHERE  percentagae < 75.00;
+        """
+
+        # Execute queries and fetch results
+        cursor.execute(query_cs)
+        cs_students = cursor.fetchall()
+
+        cursor.execute(query_bca)
+        bca_students = cursor.fetchall()
+
+        # Combine results
+        students = cs_students + bca_students
+
+        # Notify students via email
+        for student_name, email in students:
+            send_email(email, student_name)
+
+    except mysql.connector.Error as e:
+        print(f"Database error: {str(e)}")
+    finally:
+        if connection:
+            connection.close()
+
+def update_total_days():
+    """
+    Updates the total_days column in cs_stu_details and bca_stu_details tables.
+    Counts tables matching the structure cs_stu_details_%Y_%m_%d or bca_stu_details_%Y_%m_%d.
+    """
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    try:
+        # Fetch all table names
+        cursor.execute("SHOW TABLES")
+        tables = cursor.fetchall()
+
+        # Extract only table names as a list
+        table_names = [t[0] for t in tables]
+
+        # Patterns for cs_stu_details and bca_stu_details tables
+        cs_pattern = re.compile(r"^cs_stu_details_\d{4}_\d{2}_\d{2}$")
+        bca_pattern = re.compile(r"^bca_stu_details_\d{4}_\d{2}_\d{2}$")
+
+        # Count matching tables
+        cs_count = sum(1 for table in table_names if cs_pattern.match(table))
+        bca_count = sum(1 for table in table_names if bca_pattern.match(table))
+
+        # Update total_days in cs_stu_details
+        update_cs_query = """
+        UPDATE cs_stu_details
+        SET total_days = %s
+        """
+        cursor.execute(update_cs_query, (cs_count,))
+
+        # Update total_days in bca_stu_details
+        update_bca_query = """
+        UPDATE bca_stu_details
+        SET total_days = %s
+        """
+        cursor.execute(update_bca_query, (bca_count,))
+
+        conn.commit()
+        print("Total days updated successfully!")
+
+    except Exception as e:
+        conn.rollback()
+        print(f"Error updating total_days: {e}")
+
+    finally:
+        conn.close()
+
+def calculate_and_update_percentage():
+    """
+    Calculate and update the percentage column in cs_stu_details and bca_stu_details tables.
+    Percentage = (total_presents / (total_days * 5)) * 100
+    """
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    try:
+        # Update percentage for cs_stu_details
+        update_cs_percentage_query = """
+        UPDATE cs_stu_details
+        SET percentagae = 
+            CASE 
+                WHEN total_days > 0 THEN ROUND((total_presents / (total_days * 5)) * 100, 2)
+                ELSE 0 
+            END
+        """
+        cursor.execute(update_cs_percentage_query)
+
+        # Update percentage for bca_stu_details
+        update_bca_percentage_query = """
+        UPDATE bca_stu_details
+        SET percentagae = 
+            CASE 
+                WHEN total_days > 0 THEN ROUND((total_presents / (total_days * 5)) * 100, 2)
+                ELSE 0 
+            END
+        """
+        cursor.execute(update_bca_percentage_query)
+
+        conn.commit()
+        print("Percentage updated successfully!")
+
+    except Exception as e:
+        conn.rollback()
+        print(f"Error updating percentage: {e}")
+
+    finally:
+        conn.close()
+
+@app.before_request
+def before_request():
+    """Ensure total_days is updated before handling any request."""
+    update_total_days()
+    calculate_and_update_percentage()
+    #check_and_notify()
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        role = request.form['role']
+
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        if role == 'admin':
+            query = "SELECT * FROM admins WHERE aname = %s AND pass = %s"
+            cursor.execute(query, (username, password))
+        else:
+            query = """
+            SELECT * FROM cs_stu_details WHERE stu_name = %s AND pass = %s
+            UNION
+            SELECT * FROM bca_stu_details WHERE stu_name = %s AND pass = %s
+            """
+            cursor.execute(query, (username, password, username, password))
+
+        user = cursor.fetchone()
+        if user:
+            session['user'] = username
+            session['role'] = role
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid credentials!', 'danger')
+
+        conn.close()
+
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user' not in session or session['role'] != 'admin':
+        return redirect(url_for('login'))
+
+    tables = ['cs_stu_details', 'bca_stu_details']
+    return render_template('admin_dashboard.html', tables=tables)
+
+@app.route('/select_period/<table_name>', methods=['GET', 'POST'])
+def select_period(table_name):
+    if 'user' not in session or session['role'] != 'admin':
+        return redirect(url_for('login'))
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    try:
+        # Check if total_days exceeds 90 for the given table
+        query = f"SELECT MAX(total_days) FROM {table_name}"
+        cursor.execute(query)
+        total_days = cursor.fetchone()[0]
+
+        if total_days > 3:
+            # Redirect to a message page if total_days >= 90
+            return redirect(url_for('working_days_message'))
+
+    except Exception as e:
+        flash(f"Error: {e}", 'error')
+
+    finally:
+        conn.close()
+
+    # Get submitted periods from session
+    submitted_periods = session.get(f'submitted_periods_{table_name}', [])
+
+    # Available periods (1-5) excluding submitted ones
+    available_periods = [p for p in range(1, 6) if p not in submitted_periods]
+
+    if request.method == 'POST':
+        period = int(request.form['period'])
+        if period not in available_periods:
+            flash("Period already submitted or invalid!", 'danger')
+            return redirect(url_for('select_period', table_name=table_name))
+
+        # Add the selected period to the session for future reference
+        submitted_periods.append(period)
+        session[f'submitted_periods_{table_name}'] = submitted_periods
+        return redirect(url_for('table_details', table_name=table_name, period=period))
+
+    return render_template('select_period.html', table_name=table_name, periods=available_periods)
+
+@app.route('/working_days_message')
+def working_days_message():
+    """Show a message when total working days exceed 90."""
+    return render_template('working_days_message.html')
+
+@app.route('/table/<table_name>', methods=['GET'])
+def table_details(table_name):
+    if 'user' not in session or session['role'] != 'admin':
+        return redirect(url_for('login'))
+
+    period = request.args.get('period')
+    if not period or not table_name:
+        return "Invalid access", 400
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    try:
+        query = f"""
+        SELECT 
+            stu_roll_num, 
+            stu_name, 
+            present, 
+            absent, 
+            temp_present, 
+            temp_absent 
+        FROM {table_name}
+        """
+        cursor.execute(query)
+        student_details = cursor.fetchall()
+    except Exception as e:
+        conn.close()
+        return f"Error fetching data: {e}"
+
+    conn.close()
+    return render_template(
+        'table_details.html',
+        table_name=table_name,
+        student_details=student_details,
+        period=period
+    )
+
+@app.route('/mark_attendance', methods=['POST'])
+def mark_attendance():
+    if 'user' not in session or session['role'] != 'admin':
+        return redirect(url_for('login'))
+
+    roll_num = request.form['roll_num']
+    action = request.form['action']
+    table_name = request.form['table_name']
+    period = request.form['period']
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    if action == 'Present':
+        query = f"""
+        UPDATE {table_name}
+        SET temp_present = 1, temp_absent = 0
+        WHERE stu_roll_num = %s
+        """
+    elif action == 'Absent':
+        query = f"""
+        UPDATE {table_name}
+        SET temp_present = 0, temp_absent = 1
+        WHERE stu_roll_num = %s
+        """
+    else:
+        conn.close()
+        return "Invalid action"
+
+    try:
+        cursor.execute(query, (roll_num,))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        flash(f"Error updating attendance: {e}", 'error')
+
+    conn.close()
+    return redirect(url_for('table_details', table_name=table_name, period=period))
+
+@app.route('/submit_attendance', methods=['POST'])
+def submit_attendance():
+    if 'user' not in session or session['role'] != 'admin':
+        return redirect(url_for('login'))
+
+    table_name = request.form['table_name']
+    period = int(request.form['period'])
+
+    # Get the current date in the format YYYY_MM_DD
+    current_date = datetime.datetime.now().strftime("%Y_%m_%d")
+    attendance_table_name = f"{table_name}_{current_date}"
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    try:
+        # First, update total_days and percentage
+        update_total_days()  # Ensure total_days is updated
+        calculate_and_update_percentage()  # Ensure percentage is updated
+
+        # Create table with the current date if it doesn't exist
+        create_table_query = f"""
+        CREATE TABLE IF NOT EXISTS {attendance_table_name} (
+            stu_roll_num VARCHAR(100),
+            period_1 INT DEFAULT 0,
+            period_2 INT DEFAULT 0,
+            period_3 INT DEFAULT 0,
+            period_4 INT DEFAULT 0,
+            period_5 INT DEFAULT 0,
+            presents INT DEFAULT 0
+        )
+        """
+        cursor.execute(create_table_query)
+
+        # Get all students and their temp_present status
+        query = f"SELECT stu_roll_num, temp_present, total_days FROM {table_name}"
+        cursor.execute(query)
+        student_details = cursor.fetchall()
+
+        for roll_num, temp_present, total_days in student_details:
+            present_value = 1 if temp_present == 1 else 0
+
+            # Update attendance in today's table and main table
+            check_query = f"SELECT * FROM {attendance_table_name} WHERE stu_roll_num = %s"
+            cursor.execute(check_query, (roll_num,))
+            existing_record = cursor.fetchone()
+
+            if existing_record:
+                # Update today's attendance table
+                update_query = f"""
+                UPDATE {attendance_table_name}
+                SET period_{period} = %s, presents = COALESCE(presents, 0) + %s
+                WHERE stu_roll_num = %s
+                """
+                cursor.execute(update_query, (present_value, present_value, roll_num))
+            else:
+                # Insert new record
+                insert_query = f"""
+                INSERT INTO {attendance_table_name} (stu_roll_num, period_{period}, presents)
+                VALUES (%s, %s, %s)
+                """
+                cursor.execute(insert_query, (roll_num, present_value, present_value))
+
+            # Update total_presents in the main table
+            update_total_query = f"""
+            UPDATE {table_name}
+            SET total_presents = total_presents + %s
+            WHERE stu_roll_num = %s
+            """
+            cursor.execute(update_total_query, (present_value, roll_num))
+
+        conn.commit()
+
+        # Recalculate percentage and send notifications if conditions are met
+        if total_days == 3 and period == 5:
+            calculate_and_update_percentage()  # Recalculate after attendance is updated
+            query_cs = f"""
+            SELECT stu_name, mail_id, percentagae FROM {table_name}
+            WHERE percentagae < 75.00;
+            """
+            cursor.execute(query_cs)
+            students = cursor.fetchall()
+
+            for student_name, email, percentage in students:
+                percentage = float(percentage)
+                if 60 <= percentage < 75:
+                    message = "Your attendance percentage is between 60% and 74%. Please pay the fine amount immediately."
+                elif 50 <= percentage < 60:
+                    message = "Your attendance percentage is between 50% and 59%. Please pay the fine amount and submit a medical certificate."
+                elif percentage < 50:
+                    message = "Your attendance percentage is below 50%. You are not permitted to attend the exam."
+                else:
+                    continue
+                send_email(email, student_name, percentage, message)
+
+    except Exception as e:
+        conn.rollback()
+        flash(f"Error submitting attendance: {e}", 'error')
+
+    finally:
+        conn.close()
+
+    return redirect(url_for('dashboard'))
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+attendance.sql
+
+CREATE DATABASE attendance;
+USE attendance;
+
+
+-- Common structure for cs_stu_details and bca_stu_details
+CREATE TABLE cs_stu_details (
+    stu_roll_num VARCHAR(100),
+    stu_name VARCHAR(100),
+    class VARCHAR(100),
+    pass VARCHAR(100),
+    temp_present INT DEFAULT 0,
+    temp_absent INT DEFAULT 0,
+    present INT DEFAULT 0,
+    absent INT DEFAULT 0,
+    total_presents INT DEFAULT 0,
+    total_days INT DEFAULT 0,
+    percentagae varchar(100) default 0,
+    mail_id varchar(100) default 0
+);
+
+
+insert into cs_stu_details(stu_roll_num,stu_name,class,pass,mail_id) values
+("23PCS 4601","AKASH","CS","2001","kathermytheen143143@gmail.com"),
+("23PCS 4602","DHANARAJ","CS","2002","kathermytheen143143@gmail.com"),
+("23PCS 4603","DINESH","CS","2003","kathermytheen143143@gmail.com"),
+("23PCS 4604","GUNALAN","CS","2004","kathermytheen143143@gmail.com"),
+("23PCS 4605","HARI","CS","2005","kathermytheen143143@gmail.com");
+
+
+
+CREATE TABLE bca_stu_details (
+    stu_roll_num VARCHAR(100),
+    stu_name VARCHAR(100),
+    class VARCHAR(100),
+    pass VARCHAR(100),
+    temp_present INT DEFAULT 0,
+    temp_absent INT DEFAULT 0,
+    present INT DEFAULT 0,
+    absent INT DEFAULT 0,
+    total_presents INT DEFAULT 0,
+    total_days INT DEFAULT 0,
+    percentagae varchar(100) default 0,
+    mail_id varchar(100) default 0
+);
+
+
+
+insert into bca_stu_details(stu_roll_num,stu_name,class,pass,mail_id) values
+("23BCA 4601","BALA","BCA","2006","kathermytheen143143@gmail.com"),
+("23BCA 4602","PALANI","BCA","2007","kathermytheen143143@gmail.com"),
+("23BCA 4603","MURUGA","BCA","2008","kathermytheen143143@gmail.com"),
+("23BCA 4604","SIVA","BCA","2009","kathermytheen143143@gmail.com"),
+("23BCA 4605","DHANABAL","BCA","2010","kathermytheen143143@gmail.com");
+
+
+-- Admin table
+CREATE TABLE admins (
+    aname VARCHAR(100),
+    pass VARCHAR(100)
+);
+
+insert into admins(aname,pass) values("sk",3001),("ravi","3002");

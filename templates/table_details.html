@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ table_name }} - Period {{ period }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        table {
+            margin-top: 20px;
+        }
+        .btn {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">{{ table_name }} - Student Details (Period {{ period }})</h1>
+
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for roll_num, name, present, absent, temp_present, temp_absent in student_details %}
+                <tr>
+                    <td>{{ roll_num }}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ present + temp_present }}</td>
+                    <td>{{ absent + temp_absent }}</td>
+                    <td>
+                        <form action="/mark_attendance" method="POST" style="display:inline;">
+                            <input type="hidden" name="roll_num" value="{{ roll_num }}">
+                            <input type="hidden" name="action" value="Present">
+                            <input type="hidden" name="table_name" value="{{ table_name }}">
+                            <input type="hidden" name="period" value="{{ period }}">
+                            <button type="submit" class="btn btn-success btn-sm">Present</button>
+                        </form>
+                        <form action="/mark_attendance" method="POST" style="display:inline;">
+                            <input type="hidden" name="roll_num" value="{{ roll_num }}">
+                            <input type="hidden" name="action" value="Absent">
+                            <input type="hidden" name="table_name" value="{{ table_name }}">
+                            <input type="hidden" name="period" value="{{ period }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Absent</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form action="/submit_attendance" method="POST" class="text-center mt-4">
+            <input type="hidden" name="table_name" value="{{ table_name }}">
+            <input type="hidden" name="period" value="{{ period }}">
+            <button type="submit" class="btn btn-primary">Submit Attendance</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/admin_dashboard" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

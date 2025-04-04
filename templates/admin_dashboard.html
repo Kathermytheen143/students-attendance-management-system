@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .table-list {
+            max-width: 600px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .list-group-item {
+            background-color: #007bff !important; /* Always Blue */
+            color: white !important; /* Always White */
+            cursor: pointer;
+            border: 1px solid #0056b3; /* Darker Blue Border */
+            text-align: center;
+            font-weight: bold;
+        }
+        .list-group-item:hover {
+            background-color: #0056b3 !important; /* Darker Blue on Hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+            <div class="d-flex">
+                <a href="/admin_login" class="btn btn-danger">Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="table-list">
+            <h1 class="text-center">Admin Dashboard</h1>
+            <h2 class="mt-4">Available Tables</h2>
+            <ul class="list-group mt-3">
+                {% for table in tables %}
+                <li class="list-group-item" onclick="window.location.href='/select_period/{{ table }}'">
+                    {{ table }}
+                </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Clear Old Attendance Button -->
+            <form method="POST" action="{{ url_for('clear_old_attendance') }}">
+                {% if is_super_admin %}
+                <button id="clear_old_attendance" class="btn btn-danger mt-3">Clear Old Attendance</button>
+                {% else %}
+                <button id="clear_old_attendance" class="btn btn-danger mt-3" style="display:none;">Clear Old Attendance</button>
+                {% endif %}
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

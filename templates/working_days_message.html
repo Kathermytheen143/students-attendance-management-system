@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Limit</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .message-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="message-card">
+            <h1 class="text-danger">Total College Working Days Reached</h1>
+            <p class="lead">The total college working days are <strong>90</strong>. You have achieved the limit!</p>
+<form method="POST" action="{{ url_for('clear_old_attendance') }}">
+                {% if is_super_admin %}
+                <button id="clear_old_attendance" class="btn btn-danger mt-3">Clear Old Attendance</button>
+                {% else %}
+                <button id="clear_old_attendance" class="btn btn-danger mt-3" style="display:none;">Clear Old Attendance</button>
+                {% endif %}
+            </form>
+            <a href="/admin_login" class="btn btn-primary mt-3">Back to Dashboard</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

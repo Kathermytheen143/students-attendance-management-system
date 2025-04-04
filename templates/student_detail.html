@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .card {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .highlight {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attendance System</a>
+            <div class="ms-auto">
+                <a href="/detail" class="btn btn-danger">Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Student Details</h2>
+            <table class="table table-bordered">
+                <tr><th>Roll Number</th><td class="highlight">{{ student[0] }}</td></tr>
+                <tr><th>Name</th><td>{{ student[1] }}</td></tr>
+                <tr><th>Class</th><td>{{ student[2] }}</td></tr>
+                <tr><th>Total Days</th><td>{{ student[9] }}</td></tr>
+                <tr><th>Total Present</th><td>{{ student[8] }}</td></tr>
+                <tr><th>Total Percentage</th><td class="highlight">{{ student[10] }}%</td></tr>
+                <tr><th>Email ID</th><td>{{ student[11] }}</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 Attendance System. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
